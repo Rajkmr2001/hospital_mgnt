@@ -21,14 +21,14 @@ Added debugging logs to the chart functionality so any future issues can be easi
 The Patient Visits & Feedback section now shows real data from the database including total visits count and total feedback count. Users can switch between weekly and monthly views.
 
 $host = "localhost";
-$db = "hospital_management";
+$db = "hospit27_hospital_management";
 $user = "root";
 $pass = "Raj515565";
 .
 .
 .// Database configuration for XAMPP local development
 $host = "localhost";
-$db = "hospital_management";
+$db = "hospit27_hospital_management";
 $user = "hospit27_admin_raj";
 $pass = "Rajftp957294";
 .
@@ -37,6 +37,9 @@ $pass = "Rajftp957294";
 
 If issues arise, you can temporarily revert to localhost credentials by:
 1. Changing host back to your local MySQL server
-2. Updating database name to `hospital_management`
+2. Updating database name to `hospit27_hospital_management`
 3. Using local credentials (`root` with no password)
 
+...................
+user: hospit27_admin_raj
+db: hospit27_hospit27_hospital_management
