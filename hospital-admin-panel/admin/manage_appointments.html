@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #10b981;
+            --secondary: #f3f4f6;
+            --sidebar-width: 220px;
+        }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--secondary);
+            margin: 0;
+            color: #222;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            box-shadow: 2px 0 12px rgba(16,185,129,0.07);
+            display: flex;
+            flex-direction: column;
+            padding: 32px 0 0 0;
+            position: relative;
+        }
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 0 24px;
+        }
+        .sidebar nav a {
+            text-decoration: none;
+            color: #222;
+            font-weight: 600;
+            font-size: 1.08rem;
+            padding: 12px 18px;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar nav a.active, .sidebar nav a:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        .sidebar .logout {
+            margin-top: auto;
+            padding: 24px;
+        }
+        .sidebar .logout a {
+            color: #ef4444;
+            background: #fff0f0;
+            border-radius: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .sidebar .logout a:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+        .main-content {
+            flex: 1;
+            padding: 0 32px 32px 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 32px 0 18px 0;
+        }
+        .topbar .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #222;
+        }
+        .placeholder {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(16,185,129,0.07);
+            padding: 48px 32px;
+            margin-top: 48px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 0;
+                box-shadow: 0 2px 12px rgba(16,185,129,0.07);
+            }
+            .sidebar nav {
+                flex-direction: row;
+                gap: 10px;
+                padding: 0 8px;
+            }
+            .sidebar .logo {
+                margin-bottom: 0;
+            }
+            .sidebar .logout {
+                margin-top: 0;
+                padding: 0 8px;
+            }
+            .main-content {
+                padding: 0 8px 24px 8px;
+            }
+        }
+        @media (max-width: 600px) {
+            .main-content {
+                padding: 0 2vw 16px 2vw;
+            }
+            .placeholder {
+                padding: 24px 4px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo"><i class="ri-hospital-line"></i> Admin Panel</div>
+            <nav>
+                <a href="dashboard_auth.php"><i class="ri-dashboard-line"></i> Dashboard</a>
+                <a href="manage_patients.html"><i class="ri-user-3-line"></i> Manage Patients</a>
+                <a href="manage_appointments.html" class="active"><i class="ri-calendar-check-line"></i> Appointments</a>
+                <a href="manage_feedback.html"><i class="ri-message-3-line"></i> Feedback</a>
+                <a href="manage_messages.html"><i class="ri-mail-line"></i> Messages</a>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="ri-logout-box-r-line"></i> Logout</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <div class="topbar">
+                <div class="title">Manage Appointments</div>
+            </div>
+            <div class="placeholder">
+                <i class="ri-calendar-check-line" style="font-size:2.5rem;color:#10b981;"></i>
+                <div>Appointments management coming soon.</div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

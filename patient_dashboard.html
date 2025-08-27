@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Maa Kalawati Hospital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .btn-secondary {
+            background: #f8fafc;
+            color: #64748b;
+            padding: 12px 24px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+        }
+        .profile-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center">
+                        <i class="fas fa-heartbeat text-white"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-gray-800">Maa Kalawati Hospital</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-700 font-medium" id="headerPatientName">Welcome</span>
+                    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Profile Section -->
+        <div class="profile-section mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between relative z-10">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <h1 class="text-4xl font-bold mb-2">Welcome Back!</h1>
+                    <p class="text-xl opacity-90">Manage your health information and stay connected with us.</p>
+                </div>
+                <div class="relative">
+                    <img id="profilePicture" src="Images/default-avatar.png" alt="Profile Picture" 
+                         class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover">
+                    <button onclick="document.getElementById('profileInput').click()" 
+                            class="absolute bottom-0 right-0 bg-white text-purple-600 w-8 h-8 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition duration-300">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <input type="file" id="profileInput" accept="image/*" style="display: none;" onchange="uploadProfilePicture(this)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="stat-card">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-full">
+                        <i class="fas fa-calendar-alt text-blue-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Registration Date</p>
+                        <p class="text-lg font-semibold text-gray-900" id="registrationDate">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-full">
+                        <i class="fas fa-comments text-green-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Total Feedback</p>
+                        <p class="text-lg font-semibold text-gray-900" id="totalFeedback">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="flex items-center">
+                    <div class="p-3 bg-purple-100 rounded-full">
+                        <i class="fas fa-envelope text-purple-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Total Messages</p>
+                        <p class="text-lg font-semibold text-gray-900" id="totalMessages">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="flex items-center">
+                    <div class="p-3 bg-orange-100 rounded-full">
+                        <i class="fas fa-clock text-orange-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Last Visit</p>
+                        <p class="text-lg font-semibold text-gray-900" id="lastVisit">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Information and Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Personal Information -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-user-circle text-purple-600 mr-3"></i>
+                        Personal Information
+                    </h2>
+                    <button onclick="showEditModal()" class="btn-primary">
+                        <i class="fas fa-edit mr-2"></i>Edit
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-semibold text-gray-600">Name:</span>
+                        <span class="text-gray-800" id="patientName">Loading...</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-semibold text-gray-600">Age:</span>
+                        <span class="text-gray-800" id="patientAge">Loading...</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-semibold text-gray-600">Gender:</span>
+                        <span class="text-gray-800" id="patientGender">Loading...</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-semibold text-gray-600">Contact:</span>
+                        <span class="text-gray-800" id="patientContact">Loading...</span>
+                    </div>
+                    <div class="flex justify-between items-start py-3">
+                        <span class="font-semibold text-gray-600">Address:</span>
+                        <span class="text-gray-800 text-right max-w-xs" id="patientAddress">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-chart-line text-green-600 mr-3"></i>
+                    Recent Activity
+                </h2>
+                <div class="space-y-4">
+                    <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+                        <div class="p-2 bg-blue-100 rounded-full mr-4">
+                            <i class="fas fa-user-plus text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">Account Created</p>
+                            <p class="text-sm text-gray-600" id="accountCreated">Loading...</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-green-50 rounded-lg">
+                        <div class="p-2 bg-green-100 rounded-full mr-4">
+                            <i class="fas fa-comment text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">Latest Feedback</p>
+                            <p class="text-sm text-gray-600" id="latestFeedback">Loading...</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-purple-50 rounded-lg">
+                        <div class="p-2 bg-purple-100 rounded-full mr-4">
+                            <i class="fas fa-envelope text-purple-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">Latest Message</p>
+                            <p class="text-sm text-gray-600" id="latestMessage">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback and Messages -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Feedback -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-comments text-blue-600 mr-3"></i>
+                    Your Feedback
+                </h2>
+                <div id="feedbackContainer" class="space-y-4">
+                    <div class="text-center py-8">
+                        <div class="loading-spinner mx-auto mb-4"></div>
+                        <p class="text-gray-500">Loading feedback...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-envelope text-purple-600 mr-3"></i>
+                    Your Messages
+                </h2>
+                <div id="messagesContainer" class="space-y-4">
+                    <div class="text-center py-8">
+                        <div class="loading-spinner mx-auto mb-4"></div>
+                        <p class="text-gray-500">Loading messages...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Information Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Edit Personal Information</h3>
+                <button onclick="hideEditModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="editForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <input type="text" id="editName" name="name" class="form-input" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                    <input type="number" id="editAge" name="age" class="form-input" min="1" max="120">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                    <select id="editGender" name="gender" class="form-input" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                    <textarea id="editAddress" name="address" class="form-input" rows="3" placeholder="Enter your address"></textarea>
+                </div>
+                <div class="flex space-x-4 pt-4">
+                    <button type="button" onclick="hideEditModal()" class="btn-secondary flex-1">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary flex-1">
+                        <span id="updateButtonText">Update Information</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" id="alertIcon">
+                    <i class="fas fa-info-circle text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2" id="alertTitle">Information</h3>
+                <p class="text-gray-600 mb-6" id="alertMessage">This is a message.</p>
+                <button onclick="hideAlertModal()" class="btn-primary">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="patient_dashboard.js?v=1.0.1"></script>
+</body>
+</html> 
