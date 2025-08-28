@@ -77,13 +77,13 @@
 **Solutions**:
 1. Start XAMPP MySQL service
 2. Check database credentials in PHP files
-3. Verify database name is `hospital_management`
+3. Verify database name is `hospit27_hospital_management`
 
 ### 🧪 **Testing Checklist**
 
 #### **Before Testing:**
 - [ ] XAMPP Apache and MySQL are running
-- [ ] Database `hospital_management` exists
+- [ ] Database `hospit27_hospital_management` exists
 - [ ] All required tables exist
 - [ ] Patient is registered in the system
 

@@ -4,7 +4,6 @@ $host = "localhost";
 $db = "hospital_management";
 $user = "root";
 $pass = "";
-
 // Create connection
 $conn = new mysqli($host, $user, $pass, $db);
 
