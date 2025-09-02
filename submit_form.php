@@ -1,9 +1,9 @@
 <?php
 // Database credentials
 $servername = "localhost";  // XAMPP MySQL host
-$username = "root";         // Database username
-$password = "";             // Database password
-$dbname = "hospital_management";  // Your database name
+$username = "hospit27_rajskmr";      // Database username
+$password = "Rajneha7070"; // Database password
+$dbname = "hospit27_hospital_db";    // Your database name
 $port = 3306; // MySQL default port
 
 // Set the default timezone

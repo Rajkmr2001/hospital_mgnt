@@ -1,13 +1,22 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hospital_management";
+$username = "hospit27_rajskmr";
+$password = "Rajneha7070";
+$dbname = "hospit27_hospital_db";
 $port = 3306; // MySQL default port
+
+// Log connection attempt
+file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - Attempting connection\n", FILE_APPEND);
 
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
 if ($conn->connect_error) {
-    die("Database connection failed.");
+    $error_msg = "Database connection failed: " . $conn->connect_error;
+    file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - " . $error_msg . "\n", FILE_APPEND);
+    die($error_msg);
 }
 
 $name = $_POST['name'];
@@ -43,15 +52,22 @@ $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 $register_date = date("Y-m-d");
 $register_time = date("H:i:s A");
 
+// Log the query attempt
+file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - Attempting to insert new user: {$mobile}\n", FILE_APPEND);
+
 // Insert data with register_date and register_time
 $sql = "INSERT INTO patient_register (mobile_no, name, gender, password, register_date, register_time) 
         VALUES ('$mobile', '$name', '$gender', '$hashed_password', '$register_date', '$register_time')";
 
 if ($conn->query($sql) === TRUE) {
+    file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - Registration successful for: {$mobile}\n", FILE_APPEND);
     echo "Registration successful!";
 } else {
-    echo "Error: Could not register.";
+    $error = "Error: Could not register. MySQL Error: " . $conn->error;
+    file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - " . $error . "\n", FILE_APPEND);
+    echo $error;
 }
 
 $conn->close();
+file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - Connection closed\n", FILE_APPEND);
 ?>

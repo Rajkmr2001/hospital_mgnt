@@ -3,9 +3,9 @@
 
 // Database connection
 $host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'hospital_management';
+$user = 'hospit27_rajskmr';
+$password = 'Rajneha7070';
+$dbname = 'hospit27_hospital_db';
 $port = 3306; // MySQL default port
 
 $conn = new mysqli($host, $user, $password, $dbname, $port);
