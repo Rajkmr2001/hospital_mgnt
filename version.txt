@@ -46,3 +46,14 @@ $host = "localhost";
 $db = "hospit27_hospital_management";
 $user = "hospit27_admin_raj";
 $pass = "Raj515565";
+;;;;;;;;;;;;;;;;;;;;;
+// Database configuration for GoogieHost
+$host = "localhost";
+$db = "hospital_management";
+$user = "hospit27__PZjn81Jvd6McFpdoV7B4JC04nuao4p2c";
+$pass = "Raj515565";
+;;;;;;;;;;;;;;;;;;;;;;
+$host = "localhost";
+$db = "hospit27_hospital_management";
+$user = "hospit27_admin_raj";
+$pass = "Raj515565";

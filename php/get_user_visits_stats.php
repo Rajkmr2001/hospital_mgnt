@@ -59,6 +59,14 @@ if ($res = $conn->query($sql_today_unique)) {
     $res->close();
 }
 
+// Previous day's unique visitors
+$sql_prev_day_unique = "SELECT COUNT(DISTINCT `$ipCol`) AS cnt FROM user_visits WHERE DATE(`$tsCol`) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)" . $excludeCondition;
+$prev_day_unique = 0;
+if ($res = $conn->query($sql_prev_day_unique)) {
+    if ($row = $res->fetch_assoc()) { $prev_day_unique = (int)$row['cnt']; }
+    $res->close();
+}
+
 // Card 3: this week's unique visitors (Sunday-based week)
 $sql_week_unique = "SELECT COUNT(DISTINCT `$ipCol`) AS cnt FROM user_visits WHERE YEARWEEK(`$tsCol`, 0) = YEARWEEK(CURDATE(), 0)" . $excludeCondition;
 $this_week_unique = 0;
@@ -114,6 +122,7 @@ if ($res = $conn->query($sql_ips)) {
 echo json_encode([
     'total_unique_current_month_index' => $total_unique_current_month_index,
     'today_unique' => $today_unique,
+    'prev_day_unique' => $prev_day_unique,
     'this_week_unique' => $this_week_unique,
     'this_month_unique' => $this_month_unique,
     'daily' => $daily,
