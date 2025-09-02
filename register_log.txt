@@ -1,0 +1,12 @@
+2025-09-02 22:12:23 - Attempting connection
+2025-09-02 22:12:23 - Database connection failed: Access denied for user 'hospit27_rajskmr'@'localhost' (using password: YES)
+2025-09-02 22:13:08 - Attempting connection
+2025-09-02 22:13:08 - Database connection failed: Unknown database 'hospital_db'
+2025-09-02 22:14:19 - Attempting connection
+2025-09-02 22:14:19 - Attempting to insert new user: 1234567890
+2025-09-02 22:14:19 - Registration successful for: 1234567890
+2025-09-02 22:14:19 - Connection closed
+2025-09-02 22:15:05 - Attempting connection
+2025-09-02 22:15:05 - Attempting to insert new user: 9876543210
+2025-09-02 22:15:05 - Registration successful for: 9876543210
+2025-09-02 22:15:05 - Connection closed

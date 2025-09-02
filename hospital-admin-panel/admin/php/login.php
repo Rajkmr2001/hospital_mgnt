@@ -1,11 +1,21 @@
 <?php
 session_start();
-// Database credentials
-$servername = "localhost";
-$username = "hospit27_rajskmr";
-$password = "Rajneha7070";
-$dbname = "hospit27_hospital_db";
-$port = 3306;
+// Database credentials - Environment aware configuration
+if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
+    // Local XAMPP development environment
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "hospital_management";
+    $port = 3306;
+} else {
+    // GoogieHost production environment
+    $servername = "localhost";
+    $username = "hospit27_rajskmr";
+    $password = "Rajneha7070";
+    $dbname = "hospit27_hospital_db";
+    $port = 3306;
+}
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);

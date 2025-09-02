@@ -3,11 +3,22 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = "localhost";
-$username = "hospit27_rajskmr";
-$password = "Rajneha7070";
-$dbname = "hospit27_hospital_db";
-$port = 3306; // MySQL default port
+// Database configuration - auto-detect environment
+if ($_SERVER['HTTP_HOST'] == 'hospitalmgnt.whf.bz') {
+    // GoogieHost production environment
+    $servername = "localhost";
+    $username = "hospit27_rajskmr";
+    $password = "Rajneha7070";
+    $dbname = "hospit27_hospital_db";
+    $port = 3306;
+} else {
+    // Local XAMPP development environment
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "hospital_management";
+    $port = 3306;
+}
 
 // Log connection attempt
 file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - Attempting connection\n", FILE_APPEND);
