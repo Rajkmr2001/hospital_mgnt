@@ -369,7 +369,7 @@ include('php/auth_check.php');
      
      function confirmDelete() {
        if (currentFeedbackId) {
-                   fetch('/hospital_backend/php/delete_feedback.php', {
+                   fetch('../../php/delete_feedback.php', {
            method: 'POST',
            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
            body: `id=${encodeURIComponent(currentFeedbackId)}`
@@ -401,7 +401,7 @@ include('php/auth_check.php');
      });
     // Load feedback
     function loadFeedback() {
-      fetch('/hospital_backend/php/get_feedback_with_timestamps.php')
+      fetch('../../php/get_feedback_with_timestamps.php')
         .then(r => r.json())
         .then(data => {
           const tbody = document.getElementById('feedbackTbody');

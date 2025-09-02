@@ -61,7 +61,7 @@ $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
 // Get current date and time
 $register_date = date("Y-m-d");
-$register_time = date("H:i:s A");
+$register_time = date("H:i:s"); // Use 24-hour format for MySQL TIME column
 
 // Log the query attempt
 file_put_contents('register_log.txt', date('Y-m-d H:i:s') . " - Attempting to insert new user: {$mobile}\n", FILE_APPEND);
