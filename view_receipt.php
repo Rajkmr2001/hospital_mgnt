@@ -41,7 +41,14 @@ $appointment_date = date('Y-m-d', strtotime("$today +$appointment_days_ahead day
 // Generate Random Appointment Time (between 9 AM to 5 PM)
 $hour = rand(9, 17);
 $minute = str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT);
-$appointment_time = "$hour:$minute";
+$appointment_time_24 = "$hour:$minute";
+
+// Convert to 12-hour AM/PM format
+function convertTo12Hour($time24) {
+    $time = DateTime::createFromFormat('H:i', $time24);
+    return $time ? $time->format('g:i A') : $time24;
+}
+$appointment_time = convertTo12Hour($appointment_time_24);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +57,23 @@ $appointment_time = "$hour:$minute";
     <title>Appointment Receipt</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-        .receipt-container { max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('Images/college_image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
         .header { text-align: center; margin-bottom: 30px; }
         .header h2 { margin: 0; font-size: 28px; color: #333; }
         .header h3 { margin: 5px 0; font-size: 22px; color: #555; }
@@ -59,9 +81,34 @@ $appointment_time = "$hour:$minute";
         .table th, .table td { padding: 12px 15px; }
         .table th { background-color: #f2f2f2; width: 30%; }
         .footer { text-align: center; margin-top: 30px; }
+        .footer-note {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .creator-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .creator-link:hover {
+            text-decoration: underline;
+        }
         @media print {
-            body { margin: 0; background-color: #fff; }
-            .receipt-container { box-shadow: none; border-radius: 0; }
+            body {
+                margin: 0;
+                background-color: #fff;
+                background-image: none !important;
+            }
+            .receipt-container {
+                background: white !important;
+                box-shadow: none;
+                border-radius: 0;
+            }
             .no-print { display: none; }
         }
     </style>
@@ -85,6 +132,10 @@ $appointment_time = "$hour:$minute";
                 <tr><th>Appointment Time</th><td><?php echo $appointment_time; ?></td></tr>
             </tbody>
         </table>
+        <div class="footer-note">
+            <p><strong>Note:</strong> This website has been developed solely for educational purposes. It is a personal project and does not represent a real-world hospital management system.</p>
+            <p>Created and managed by <a href="https://rajkmr2001.github.io/hospital_mgnt/creator.html" class="creator-link" target="_blank">Raj Kumar</a></p>
+        </div>
         <div class="footer no-print">
             <button onclick="window.print()" class="btn btn-primary">Print or Save as PDF</button>
             <a href="index.html" class="btn btn-secondary">Back to Home</a>
