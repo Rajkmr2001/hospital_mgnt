@@ -7,7 +7,7 @@ $dbname = "hospit27_hospital_db";    // Your database name
 $port = 3306; // MySQL default port
 
 // Set the default timezone
-date_default_timezone_set("Asia/Kolkata"); // Change to your desired timezone
+date_default_timezone_set("Asia/Kolkata");
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
@@ -30,20 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare SQL query to insert data into the database
     $stmt = $conn->prepare("INSERT INTO patient_data (contact, name, age, gender, address, submission_time, submission_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssss", $contact, $name, $age, $gender, $address, $submission_time, $submission_date);
-$stmt->execute();
+    $stmt->bind_param("ssissss", $contact, $name, $age, $gender, $address, $submission_time, $submission_date);
 
     // Execute query and check if data is inserted
-    if ($conn->query($sql) === TRUE) {
-        // Data inserted successfully, redirect to the page to view data
-        header("Location: show_pdata.php?contact=$contact");
+    if ($stmt->execute()) {
+        // Data inserted successfully, redirect to the page to view the receipt
+        header("Location: view_receipt.php?contact=" . urlencode($contact));
         exit(); // Make sure to exit after header redirect
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
-}
-$conn->close();
 }
 ?>
