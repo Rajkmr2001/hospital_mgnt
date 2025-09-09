@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 $contact = $_GET['contact'];
 
 // SQL query to get patient data using the contact number
-$sql = "SELECT * FROM patient_data WHERE contact = '$contact'";
+$sql = "SELECT * FROM patient_data2 WHERE contact = '$contact'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

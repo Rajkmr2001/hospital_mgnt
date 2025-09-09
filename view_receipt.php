@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 $contact = $_GET['contact'];
 
 // Prepare and execute the query to prevent SQL injection
-$stmt = $conn->prepare("SELECT * FROM patient_data WHERE contact = ?");
+$stmt = $conn->prepare("SELECT * FROM patient_data2 WHERE contact = ?");
 $stmt->bind_param("s", $contact);
 $stmt->execute();
 $result = $stmt->get_result();

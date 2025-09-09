@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 }
 
 // Create patient_data table if it doesn't exist
-$table_sql = "CREATE TABLE IF NOT EXISTS patient_data (
+$table_sql = "CREATE TABLE IF NOT EXISTS patient_data2 (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     contact VARCHAR(15) NOT NULL,
     name VARCHAR(100) NOT NULL,
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $submission_date = date("Y-m-d"); // Current date
 
     // Prepare SQL query to insert data into the database
-    $stmt = $conn->prepare("INSERT INTO patient_data (contact, name, age, gender, address, submission_time, submission_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO patient_data2 (contact, name, age, gender, address, submission_time, submission_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssissss", $contact, $name, $age, $gender, $address, $submission_time, $submission_date);
 
     // Execute query and check if data is inserted
