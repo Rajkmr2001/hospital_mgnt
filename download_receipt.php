@@ -1,17 +1,17 @@
 <?php
-// Database credentials
-$servername = "localhost";  // XAMPP MySQL host
-$username = "hospit27_rajskmr";      // Database username
-$password = "Rajneha7070"; // Database password
-$dbname = "hospit27_hospital_db";    // Your database name
-$port = 3306; // MySQL default port
+// Database credentials for GoogieHost
+$servername = "localhost";
+$username = "hospit27_rajskmr";
+$password = "Rajneha7070";
+$dbname = "hospit27_hospital_db";
+$port = 3306;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error . ". Please ensure your GoogieHost database is accessible.");
 }
 
 // Fetch contact from URL

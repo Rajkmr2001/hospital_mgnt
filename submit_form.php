@@ -1,10 +1,10 @@
 <?php
-// Database credentials
-$servername = "localhost";  // XAMPP MySQL host
-$username = "hospit27_rajskmr";      // Database username
-$password = "Rajneha7070"; // Database password
-$dbname = "hospit27_hospital_db";    // Your database name
-$port = 3306; // MySQL default port
+// Database credentials for GoogieHost
+$servername = "localhost";
+$username = "hospit27_rajskmr";
+$password = "Rajneha7070";
+$dbname = "hospit27_hospital_db";
+$port = 3306;
 
 // Set the default timezone
 date_default_timezone_set("Asia/Kolkata");
@@ -14,7 +14,22 @@ $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error . ". Please ensure your GoogieHost database is accessible.");
+}
+
+// Create patient_data table if it doesn't exist
+$table_sql = "CREATE TABLE IF NOT EXISTS patient_data (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    contact VARCHAR(15) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    age INT(3) NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    address TEXT NOT NULL,
+    submission_time VARCHAR(20) NOT NULL,
+    submission_date DATE NOT NULL
+)";
+if (!$conn->query($table_sql)) {
+    die("Error creating table: " . $conn->error);
 }
 
 // Check if form is submitted
@@ -44,4 +59,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 }
+$conn->close();
 ?>
