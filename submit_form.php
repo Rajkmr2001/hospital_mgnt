@@ -29,8 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $submission_date = date("Y-m-d"); // Current date
 
     // Prepare SQL query to insert data into the database
-    $sql = "INSERT INTO patient_data (contact, name, age, gender, address, submission_time, submission_date)
-            VALUES ('$contact', '$name', '$age', '$gender', '$address', '$submission_time', '$submission_date')";
+    $stmt = $conn->prepare("INSERT INTO patient_data (contact, name, age, gender, address, submission_time, submission_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sssssss", $contact, $name, $age, $gender, $address, $submission_time, $submission_date);
+$stmt->execute();
 
     // Execute query and check if data is inserted
     if ($conn->query($sql) === TRUE) {
@@ -42,5 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
+}
+$conn->close();
 }
 ?>
