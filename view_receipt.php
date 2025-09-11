@@ -135,6 +135,7 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         <div class="footer-note">
             <p><strong>Note:</strong> This website has been developed solely for educational purposes. It is a personal project and does not represent a real-world hospital management system.</p>
             <p>Created and managed by <a href="https://rajkmr2001.github.io/hospital_mgnt/creator.html" class="creator-link" target="_blank">Raj Kumar</a></p>
+            <p>For more visit - <a href="https://github.com/Rajkmr2001" class="creator-link" target="_blank">GitHub Profile</a></p>
         </div>
         <div class="footer no-print">
             <button onclick="window.print()" class="btn btn-primary">Print or Save as PDF</button>
