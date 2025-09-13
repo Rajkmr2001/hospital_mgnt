@@ -60,7 +60,9 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-        min-height: 100vh;
+            min-height: 100vh;
+            line-height: 1.6;
+            font-size: 14px;
     }
     /* Removed body background image */
     .table {
@@ -77,10 +79,14 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         z-index: 1;
         max-width: 800px;
         margin: auto;
-        background: rgba(255, 255, 255, 0.60); /* more transparent so bg shows clearer */
+        background: rgba(255, 255, 255, 0.60);
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        border: 2px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+                    linear-gradient(45deg, #0b5fa4, #007bff) border-box;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
@@ -93,7 +99,7 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         font-weight: 700;
         font-size: 16px;
         color: #111;
-        background-color: rgba(255, 255, 255, 0.85);
+        background-color: rgba(255, 255, 255, 0.92);
         position: relative;
         z-index: 1;
     }
@@ -101,17 +107,35 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         .footer { text-align: center; margin-top: 30px; }
         .footer-note {
             margin-top: 30px;
-            padding: 10px 5px;
-            background: transparent; /* remove extra background */
-            border-left: none;
+            padding: 20px 15px;
+            background: rgba(248,249,250,0.8);
+            border-top: 2px dashed #ddd;
             font-size: 14px;
             color: #222;
             text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .creator-link {
-            color: #0b8f3b; /* green */
+            color: #0b5fa4;
             text-decoration: none;
             font-weight: 700;
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(11,95,164,0.2);
+            border: 1px solid rgba(11,95,164,0.3);
+            transition: all 0.3s ease;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .creator-link:hover {
+            box-shadow: 0 4px 12px rgba(11,95,164,0.3);
+            transform: translateY(-1px);
+            color: #007bff;
         }
         .creator-link:hover {
             text-decoration: underline;
@@ -123,6 +147,22 @@ $appointment_time = convertTo12Hour($appointment_time_24);
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(11,143,59,0.2);
+            border: 1px solid rgba(11,143,59,0.3);
+            transition: all 0.3s ease;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .github-link:hover {
+            box-shadow: 0 4px 12px rgba(11,143,59,0.3);
+            transform: translateY(-1px);
+            color: #28a745;
         }
         .github-icon {
             width: 18px;
@@ -170,7 +210,7 @@ $appointment_time = convertTo12Hour($appointment_time_24);
             </tbody>
         </table>
         <div class="footer-note">
-            <p><strong>Note:</strong> This website has been developed solely for educational purposes. It is a personal project and does not represent a real-world hospital management system.</p>
+            <p><strong style="color: #dc3545; font-weight: 700;">Note:</strong> This website has been developed solely for educational purposes. It is a personal project and does not represent a real-world hospital management system.</p>
             <p>Created and managed by <a href="https://rajkmr2001.github.io/hospital_mgnt/creator.html" class="creator-link" target="_blank" rel="noopener">Raj Kumar</a></p>
             <p>For more visit - <a href="https://github.com/Rajkmr2001" class="github-link" target="_blank" rel="noopener">
                 <!-- GitHub SVG icon -->

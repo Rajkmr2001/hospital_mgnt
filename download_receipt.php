@@ -60,12 +60,23 @@ $receipt = "
   <title>Appointment Receipt</title>
   <style>
     @page { margin: 15mm; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        line-height: 1.6;
+        font-size: 14px;
+    }
     .container {
         padding: 30px;
         border-radius: 12px;
         max-width: 850px;
         margin: auto;
+        border: 2px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+                    linear-gradient(45deg, #0b5fa4, #007bff) border-box;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
     .overlay {
         background: rgba(255,255,255,0.95);
@@ -87,20 +98,61 @@ $receipt = "
     th, td {
         padding:12px;
         border:1px solid #ddd;
-        background-color: rgba(255, 255, 255, 0.85);
+        background-color: rgba(255, 255, 255, 0.92);
     }
     th { background-color:#f4f6f8; text-align:left; width:35%; }
     tr:nth-child(even) { background-color:#fafafa; }
     .footer-note {
-        margin-top:30px; 
-        padding-top:15px; 
-        border-top:2px solid #eee; 
-        font-size:13px; 
-        text-align:center; 
+        margin-top:30px;
+        padding:20px 15px;
+        border-top:2px dashed #ddd;
+        font-size:13px;
+        text-align:center;
         color:#444;
+        background: rgba(248,249,250,0.8);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    .creator-link { color:#0b5fa4; font-weight:600; text-decoration:none; }
-    .github-link { display:inline-flex; align-items:center; color:#0b8f3b; font-weight:600; text-decoration:none; }
+    .creator-link {
+        color:#0b5fa4;
+        font-weight:600;
+        text-decoration:none;
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 4px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 6px rgba(11,95,164,0.2);
+        border: 1px solid rgba(11,95,164,0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .creator-link:hover {
+        box-shadow: 0 4px 12px rgba(11,95,164,0.3);
+        transform: translateY(-1px);
+        color: #007bff;
+    }
+    .github-link {
+        display:inline-flex;
+        align-items:center;
+        color:#0b8f3b;
+        font-weight:600;
+        text-decoration:none;
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 4px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 6px rgba(11,143,59,0.2);
+        border: 1px solid rgba(11,143,59,0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .github-link:hover {
+        box-shadow: 0 4px 12px rgba(11,143,59,0.3);
+        transform: translateY(-1px);
+        color: #28a745;
+    }
     .github-icon { width:16px; height:16px; margin-right:6px; fill:#0b8f3b; }
   </style>
 </head>
@@ -123,7 +175,7 @@ $receipt = "
         <tr><th>Appointment Time</th><td>" . $appointment_time . "</td></tr>
       </table>
       <div class='footer-note'>
-        <p><strong>Note:</strong> This website has been developed solely for educational purposes. It is a personal project and does not represent a real-world hospital management system.</p>
+        <p><strong style="color: #dc3545; font-weight: 700;">Note:</strong> This website has been developed solely for educational purposes. It is a personal project and does not represent a real-world hospital management system.</p>
         <p>Created and managed by 
            <a href='https://rajkmr2001.github.io/hospital_mgnt/creator.html' class='creator-link' target='_blank' rel='noopener'>Raj Kumar</a>
         </p>
