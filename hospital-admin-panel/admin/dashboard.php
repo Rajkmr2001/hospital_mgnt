@@ -55,6 +55,7 @@ include('php/auth_check.php');
     <nav id="mainNav">
       <a href="dashboard.php" class="active">Dashboard</a>
       <a href="manage_patients.php">Patients</a>
+      <a href="manage_appointments.php">Appointments</a>
       <a href="user_visits.php">Visits</a>
       <a href="manage_feedback.php">Feedback</a>
       <a href="manage_messages.php">Messages</a>
@@ -88,6 +89,13 @@ include('php/auth_check.php');
         </div>
       </div>
       <div class="stat-card">
+        <div class="icon"><i class="ri-calendar-line"></i></div>
+        <div class="content">
+          <div class="value" id="totalAppointments">0</div>
+          <div class="label">Total Appointments</div>
+        </div>
+      </div>
+      <div class="stat-card">
         <div class="icon"><i class="ri-message-3-line"></i></div>
         <div class="content">
           <div class="value" id="totalFeedback">0</div>
@@ -115,6 +123,11 @@ include('php/auth_check.php');
         <div class="icon"><i class="ri-user-line"></i></div>
         <div class="title">Manage Patients</div>
         <div class="desc">View and manage patient records</div>
+      </a>
+      <a href="manage_appointments.php" class="action-card">
+        <div class="icon"><i class="ri-calendar-line"></i></div>
+        <div class="title">Manage Appointments</div>
+        <div class="desc">View and manage appointment records</div>
       </a>
       <a href="user_visits.php" class="action-card">
         <div class="icon"><i class="ri-bar-chart-line"></i></div>
@@ -168,6 +181,11 @@ include('php/auth_check.php');
         const patientsResponse = await fetch('php/get_total_patients.php');
         const patientsData = await patientsResponse.json();
         document.getElementById('totalPatients').textContent = patientsData.total || 0;
+        
+        // Load total appointments
+        const appointmentsResponse = await fetch('php/get_total_appointments.php');
+        const appointmentsData = await appointmentsResponse.json();
+        document.getElementById('totalAppointments').textContent = appointmentsData.total || 0;
         
         // Load total feedback
         const feedbackResponse = await fetch('php/get_total_feedback.php');
