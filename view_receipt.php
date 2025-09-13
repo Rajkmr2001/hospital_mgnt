@@ -60,41 +60,43 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-image: url('Images/college_image.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 100vh;
-        }
-        .bg-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            opacity: 1;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .receipt-container {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.60); /* more transparent so bg shows clearer */
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
+        min-height: 100vh;
+    }
+    /* Removed body background image */
+    .table {
+        margin-top: 20px;
+        background-image: url('Images/college_image.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+    /* Removed .bg-image class */
+    .receipt-container {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.60); /* more transparent so bg shows clearer */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
     .header { text-align: center; margin-bottom: 30px; }
     .header h2 { margin: 0; font-size: 30px; color: #111; font-weight: 800; }
     .header h3 { margin: 5px 0; font-size: 22px; color: #222; font-weight: 800; }
         .table { margin-top: 20px; }
-    .table th, .table td { padding: 12px 15px; font-weight: 700; font-size: 16px; color: #111; }
+    .table th, .table td {
+        padding: 12px 15px;
+        font-weight: 700;
+        font-size: 16px;
+        color: #111;
+        background-color: rgba(255, 255, 255, 0.85);
+        position: relative;
+        z-index: 1;
+    }
     .table th { background-color: rgba(242,242,242,0.9); width: 30%; }
         .footer { text-align: center; margin-top: 30px; }
         .footer-note {
@@ -148,7 +150,7 @@ $appointment_time = convertTo12Hour($appointment_time_24);
     </style>
 </head>
 <body>
-    <img src="Images/college_image.jpg" alt="background" class="bg-image">
+    <!-- Removed lower background image -->
     <div class="receipt-container">
         <div class="header">
             <h2>Maa Kalawati Hospital Ranchi</h2>
