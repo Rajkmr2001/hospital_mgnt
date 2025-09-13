@@ -72,6 +72,7 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     /* Removed .bg-image class */
     .receipt-container {
@@ -99,7 +100,7 @@ $appointment_time = convertTo12Hour($appointment_time_24);
         font-weight: 700;
         font-size: 16px;
         color: #111;
-        background-color: rgba(255, 255, 255, 0.92);
+        background-color: rgba(255, 255, 255, 0.7);
         position: relative;
         z-index: 1;
     }

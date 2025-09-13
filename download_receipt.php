@@ -94,11 +94,12 @@ $receipt = "
         font-size:14px;
         background: url('{$bgBase64}') no-repeat center;
         background-size: cover;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     th, td {
         padding:12px;
         border:1px solid #ddd;
-        background-color: rgba(255, 255, 255, 0.92);
+        background-color: rgba(255, 255, 255, 0.73);
     }
     th { background-color:#f4f6f8; text-align:left; width:35%; }
     tr:nth-child(even) { background-color:#fafafa; }
